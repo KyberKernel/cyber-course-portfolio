@@ -1,6 +1,7 @@
 Assignment: Map Your Network
 Connect the networking concepts from this section — IP addresses, MAC addresses, subnets, gateways, DNS, and ports — to the real machine in front of you.
 By the end you'll have produced a "network profile" of your own computer and the network it sits on, using the same command-line tools security professionals reach for every day.
+
 Part 1 — Your machine's identity
 
 1. What are your computer's IPv4 and MAC addresses?
