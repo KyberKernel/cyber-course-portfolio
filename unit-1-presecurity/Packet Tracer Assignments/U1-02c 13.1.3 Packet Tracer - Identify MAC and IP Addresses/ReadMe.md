@@ -29,11 +29,8 @@ I clicked the PDU and looked at the OSI Model and Outbound PDU Details tabs.
 
 The information was:
 
-Device: 172.16.31.3
-Source MAC: 0060.7036.2849
-Destination MAC: 000C:85CC:1DA7
-Source IPv4: 172.16.31.3
-Destination IPv4: 172.16.31.2
+Device	Source MAC	Destination MAC	Source IPv4	Destination IPv4
+172.16.31.3	0060.7036.2849	000C:85CC:1DA7	172.16.31.3	172.16.31.2
 
 This showed me that the Ethernet frame was being sent directly from the source host to the destination host because both devices were on the same local network.
 
@@ -90,10 +87,11 @@ I clicked the PDU and examined the addressing information.
 
 The PDU contained:
 
-Source MAC: 0060.7036.2849
-Destination MAC: 00D0:BA8E:741A
-Source IPv4: 172.16.31.3
-Destination IPv4: 10.10.10.2
+Address Type	Address
+Source MAC	0060.7036.2849
+Destination MAC	00D0:BA8E:741A
+Source IPv4	172.16.31.3
+Destination IPv4	10.10.10.2
 Step 3: Identify the Destination MAC Address
 
 I checked the router's interface information.
@@ -227,4 +225,4 @@ For the remote communication, 172.16.31.3 needed to communicate with 10.10.10.2,
 
 When the destination sent the ping reply, the source and destination IPv4 addresses were reversed. The MAC addresses were also changed again when the reply passed through the router.
 
-Overall, this activity helped me understand that MAC addresses are used for communication on the local network segment, while IPv4 addresses identify the source and destination networks across the entire communication path
+Overall, this activity helped me understand that MAC addresses are used for communication on the local network segment, while IPv4 addresses identify the source and destination networks across the entire communication path.
