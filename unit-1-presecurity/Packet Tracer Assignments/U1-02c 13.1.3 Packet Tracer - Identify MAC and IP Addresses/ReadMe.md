@@ -43,7 +43,7 @@ I clicked Capture / Forward to move the PDU through the network.
 
 I recorded the information at each step.
 
-At Device	Source MAC	Destination MAC	Source IPv4	Destination IPv4
+Device	Source MAC	Destination MAC	Source IPv4	Destination IPv4
 172.16.31.3	0060.7036.2849	000C:85CC:1DA7	172.16.31.3	172.16.31.2
 Switch 2	0060.7036.2849	000C:85CC:1DA7	N/A	N/A
 172.16.31.2 (in)	000C:85CC:1DA7	000C:85CC:1DA7	172.16.31.3	172.16.31.2
@@ -74,11 +74,9 @@ The source is on:
 
 172.16.31.0/24
 
-
 The destination is on:
 
 10.10.10.0/24
-
 
 Therefore, a router was required.
 
@@ -110,7 +108,7 @@ I repeatedly clicked Capture / Forward and watched the PDU move through the netw
 
 I recorded the information at each point.
 
-At Device	Source MAC	Destination MAC	Source IPv4	Destination IPv4
+Device	Source MAC	Destination MAC	Source IPv4	Destination IPv4
 172.16.31.3	0060.7036.2849	00D0:BA8E:741A	172.16.31.3	10.10.10.2
 Switch 2	0060.7036.2849	00D0:BA8E:741A	N/A	N/A
 Router (in)	0060.7036.2849	00D0:BA8E:741A	172.16.31.3	10.10.10.2
@@ -142,7 +140,7 @@ I then followed the echo-reply from 10.10.10.2 back toward 172.16.31.3.
 
 The reply contained:
 
-At Device	Source MAC	Destination MAC	Source IPv4	Destination IPv4
+Device	Source MAC	Destination MAC	Source IPv4	Destination IPv4
 10.10.10.2	0060:2F84:4AB6	00D0:588C:2401	10.10.10.2	172.16.31.3
 Access Point	N/A	N/A	N/A	N/A
 Switch 1	0060:2F84:4AB6	00D0:588C:2401	N/A	N/A
@@ -155,65 +153,65 @@ I noticed that the IPv4 source and destination addresses were reversed because 1
 The MAC addresses also changed again when the reply passed through the router.
 
 Reflection Questions
-1. What different types of cables/media were used?
+What different types of cables/media were used?
 
 I observed copper, fiber, and wireless connections in the topology.
 
-2. Did the cables change the handling of the PDU?
+Did the cables change the handling of the PDU?
 
 No. The type of cable did not change the addressing or the basic handling of the PDU.
 
-3. Did the wireless Access Point do anything to the PDUs?
+Did the wireless Access Point do anything to the PDUs?
 
 Yes. The access point repackaged the data into wireless 802.11 frames.
 
-4. Was PDU addressing changed by the Access Point?
+Was PDU addressing changed by the Access Point?
 
 No. The addressing information was not changed by the access point.
 
-5. What was the highest OSI layer that the Access Point used?
+What was the highest OSI layer that the Access Point used?
 
 The highest layer observed for the access point was Layer 1, the Physical layer.
 
-6. At what OSI layer do cables and access points operate?
+At what OSI layer do cables and access points operate?
 
 They operate at Layer 1, the Physical layer.
 
-7. Which MAC address appeared first in the PDU Details tab?
+Which MAC address appeared first in the PDU Details tab?
 
 The destination MAC address appeared first.
 
-8. What do the red Xs and green check marks mean?
+What do the red Xs and green check marks mean?
 
 The red X means that the device did not accept the PDU because the destination MAC address did not match the device's MAC address.
 
 The green check mark means that the PDU was accepted by the device.
 
-9. Where did the MAC addresses change?
+Where did the MAC addresses change?
 
 The MAC addresses changed when the PDU passed through the router.
 
-10. Which device uses MAC addresses beginning with 00D0:BA?
+Which device uses MAC addresses beginning with 00D0:BA?
 
 The router uses the MAC addresses beginning with 00D0:BA.
 
-11. What did the other MAC addresses belong to?
+What did the other MAC addresses belong to?
 
 The other MAC addresses belonged to the sending and receiving devices and their interfaces.
 
-12. Did the IPv4 addresses change?
+Did the IPv4 addresses change?
 
 No. The source and destination IPv4 addresses stayed the same while the original packet traveled through the network.
 
-13. What happens to the source and destination addresses in the ping reply?
+What happens to the source and destination addresses in the ping reply?
 
 They switch because the device that originally received the ping becomes the source of the reply.
 
-14. Why are the router interfaces part of two different IP networks?
+Why are the router interfaces part of two different IP networks?
 
 The router connects two different IP networks. Therefore, each router interface needs to belong to a different network so that it can communicate with both networks and forward traffic between them.
 
-15. Which IP networks are connected by the router?
+Which IP networks are connected by the router?
 
 The router connects:
 
@@ -229,4 +227,4 @@ For the remote communication, 172.16.31.3 needed to communicate with 10.10.10.2,
 
 When the destination sent the ping reply, the source and destination IPv4 addresses were reversed. The MAC addresses were also changed again when the reply passed through the router.
 
-Overall, this activity helped me understand that MAC addresses are used for communication on the local network segment, while IPv4 addresses identify the source and destination networks across the entire communication path.
+Overall, this activity helped me understand that MAC addresses are used for communication on the local network segment, while IPv4 addresses identify the source and destination networks across the entire communication path
