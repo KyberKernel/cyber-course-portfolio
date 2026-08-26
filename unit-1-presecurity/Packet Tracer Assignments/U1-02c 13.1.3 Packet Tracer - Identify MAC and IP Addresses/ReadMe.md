@@ -29,8 +29,7 @@ I clicked the PDU and looked at the OSI Model and Outbound PDU Details tabs.
 
 The information was:
 
-Device	Source MAC	Destination MAC	Source IPv4	Destination IPv4
-172.16.31.3	0060.7036.2849	000C:85CC:1DA7	172.16.31.3	172.16.31.2
+<table> <tr> <th>Device</th> <th>Source MAC</th> <th>Destination MAC</th> <th>Source IPv4</th> <th>Destination IPv4</th> </tr> <tr> <td>172.16.31.3</td> <td>0060.7036.2849</td> <td>000C:85CC:1DA7</td> <td>172.16.31.3</td> <td>172.16.31.2</td> </tr> </table>
 
 This showed me that the Ethernet frame was being sent directly from the source host to the destination host because both devices were on the same local network.
 
@@ -40,11 +39,7 @@ I clicked Capture / Forward to move the PDU through the network.
 
 I recorded the information at each step.
 
-Device	Source MAC	Destination MAC	Source IPv4	Destination IPv4
-172.16.31.3	0060.7036.2849	000C:85CC:1DA7	172.16.31.3	172.16.31.2
-Switch 2	0060.7036.2849	000C:85CC:1DA7	N/A	N/A
-172.16.31.2 (in)	000C:85CC:1DA7	000C:85CC:1DA7	172.16.31.3	172.16.31.2
-172.16.31.2 (out)	0060.7036.2849	0060.7036.2849	172.16.31.2	172.16.31.3
+<table> <tr> <th>Device</th> <th>Source MAC</th> <th>Destination MAC</th> <th>Source IPv4</th> <th>Destination IPv4</th> </tr> <tr> <td>172.16.31.3</td> <td>0060.7036.2849</td> <td>000C:85CC:1DA7</td> <td>172.16.31.3</td> <td>172.16.31.2</td> </tr> <tr> <td>Switch 2</td> <td>0060.7036.2849</td> <td>000C:85CC:1DA7</td> <td>N/A</td> <td>N/A</td> </tr> <tr> <td>172.16.31.2 (in)</td> <td>000C:85CC:1DA7</td> <td>000C:85CC:1DA7</td> <td>172.16.31.3</td> <td>172.16.31.2</td> </tr> <tr> <td>172.16.31.2 (out)</td> <td>0060.7036.2849</td> <td>0060.7036.2849</td> <td>172.16.31.2</td> <td>172.16.31.3</td> </tr> </table>
 Step 5: Examine the Echo Reply
 
 When the destination received the ping, it sent an ICMP echo-reply back to 172.16.31.3.
@@ -71,9 +66,11 @@ The source is on:
 
 172.16.31.0/24
 
+
 The destination is on:
 
 10.10.10.0/24
+
 
 Therefore, a router was required.
 
@@ -87,11 +84,7 @@ I clicked the PDU and examined the addressing information.
 
 The PDU contained:
 
-Address Type	Address
-Source MAC	0060.7036.2849
-Destination MAC	00D0:BA8E:741A
-Source IPv4	172.16.31.3
-Destination IPv4	10.10.10.2
+<table> <tr> <th>Address Type</th> <th>Address</th> </tr> <tr> <td>Source MAC</td> <td>0060.7036.2849</td> </tr> <tr> <td>Destination MAC</td> <td>00D0:BA8E:741A</td> </tr> <tr> <td>Source IPv4</td> <td>172.16.31.3</td> </tr> <tr> <td>Destination IPv4</td> <td>10.10.10.2</td> </tr> </table>
 Step 3: Identify the Destination MAC Address
 
 I checked the router's interface information.
@@ -106,14 +99,7 @@ I repeatedly clicked Capture / Forward and watched the PDU move through the netw
 
 I recorded the information at each point.
 
-Device	Source MAC	Destination MAC	Source IPv4	Destination IPv4
-172.16.31.3	0060.7036.2849	00D0:BA8E:741A	172.16.31.3	10.10.10.2
-Switch 2	0060.7036.2849	00D0:BA8E:741A	N/A	N/A
-Router (in)	0060.7036.2849	00D0:BA8E:741A	172.16.31.3	10.10.10.2
-Router (out)	00D0:588C:2401	0060:2F84:4AB6	172.16.31.3	10.10.10.2
-Switch 1	00D0:588C:2401	0060:2F84:4AB6	N/A	N/A
-Access Point	N/A	N/A	N/A	N/A
-10.10.10.2	0060:2F84:4AB6	00D0:588C:2401	10.10.10.2	172.16.31.5
+<table> <tr> <th>Device</th> <th>Source MAC</th> <th>Destination MAC</th> <th>Source IPv4</th> <th>Destination IPv4</th> </tr> <tr> <td>172.16.31.3</td> <td>0060.7036.2849</td> <td>00D0:BA8E:741A</td> <td>172.16.31.3</td> <td>10.10.10.2</td> </tr> <tr> <td>Switch 2</td> <td>0060.7036.2849</td> <td>00D0:BA8E:741A</td> <td>N/A</td> <td>N/A</td> </tr> <tr> <td>Router (in)</td> <td>0060.7036.2849</td> <td>00D0:BA8E:741A</td> <td>172.16.31.3</td> <td>10.10.10.2</td> </tr> <tr> <td>Router (out)</td> <td>00D0:588C:2401</td> <td>0060:2F84:4AB6</td> <td>172.16.31.3</td> <td>10.10.10.2</td> </tr> <tr> <td>Switch 1</td> <td>00D0:588C:2401</td> <td>0060:2F84:4AB6</td> <td>N/A</td> <td>N/A</td> </tr> <tr> <td>Access Point</td> <td>N/A</td> <td>N/A</td> <td>N/A</td> <td>N/A</td> </tr> <tr> <td>10.10.10.2</td> <td>0060:2F84:4AB6</td> <td>00D0:588C:2401</td> <td>10.10.10.2</td> <td>172.16.31.5</td> </tr> </table>
 Step 5: Observe What Happened at the Router
 
 The most important thing I noticed was that the MAC addresses changed at the router.
@@ -123,10 +109,12 @@ Before the router, the frame used:
 Source MAC: 0060.7036.2849
 Destination MAC: 00D0:BA8E:741A
 
+
 After the router, the frame used:
 
 Source MAC: 00D0:588C:2401
 Destination MAC: 0060:2F84:4AB6
+
 
 The IPv4 addresses remained the same during the request.
 
@@ -138,13 +126,7 @@ I then followed the echo-reply from 10.10.10.2 back toward 172.16.31.3.
 
 The reply contained:
 
-Device	Source MAC	Destination MAC	Source IPv4	Destination IPv4
-10.10.10.2	0060:2F84:4AB6	00D0:588C:2401	10.10.10.2	172.16.31.3
-Access Point	N/A	N/A	N/A	N/A
-Switch 1	0060:2F84:4AB6	00D0:588C:2401	N/A	N/A
-Router (in)	0060:2F84:4AB6	00D0:588C:2401	10.10.10.2	172.16.31.3
-Router (out)	00D0:BA8E:741A	0060:7036.2849	10.10.10.2	172.16.31.3
-Switch 2	00D0:BA8E:741A	0060.7036.2849	N/A	N/A
+<table> <tr> <th>Device</th> <th>Source MAC</th> <th>Destination MAC</th> <th>Source IPv4</th> <th>Destination IPv4</th> </tr> <tr> <td>10.10.10.2</td> <td>0060:2F84:4AB6</td> <td>00D0:588C:2401</td> <td>10.10.10.2</td> <td>172.16.31.3</td> </tr> <tr> <td>Access Point</td> <td>N/A</td> <td>N/A</td> <td>N/A</td> <td>N/A</td> </tr> <tr> <td>Switch 1</td> <td>0060:2F84:4AB6</td> <td>00D0:588C:2401</td> <td>N/A</td> <td>N/A</td> </tr> <tr> <td>Router (in)</td> <td>0060:2F84:4AB6</td> <td>00D0:588C:2401</td> <td>10.10.10.2</td> <td>172.16.31.3</td> </tr> <tr> <td>Router (out)</td> <td>00D0:BA8E:741A</td> <td>0060:7036.2849</td> <td>10.10.10.2</td> <td>172.16.31.3</td> </tr> <tr> <td>Switch 2</td> <td>00D0:BA8E:741A</td> <td>0060.7036.2849</td> <td>N/A</td> <td>N/A</td> </tr> </table>
 
 I noticed that the IPv4 source and destination addresses were reversed because 10.10.10.2 was now sending the reply to 172.16.31.3.
 
@@ -215,6 +197,7 @@ The router connects:
 
 172.16.31.0/24
 10.10.10.0/24
+
 Conclusion
 
 After completing the Packet Tracer simulation, I learned how MAC addresses and IPv4 addresses work together when data travels through a network.
