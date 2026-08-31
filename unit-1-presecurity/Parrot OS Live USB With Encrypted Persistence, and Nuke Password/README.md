@@ -294,7 +294,7 @@ And once we find ourselves back at the prompt where we are asked to enter our pa
 
 And don't expect much when you do this. You're not going to get some popup message on your screen or flashy things. You are actually not going to see anything different at all. But underneath the hood, what should be taking place is that that partition is now going to be useless. So from this point forward, when you attempt to enter your decryption password, it should have no effect.
 
-And there's just so many different use cases for this. You know man, you are traveling and you have to go through airport security. Or you're over at your ex-girlfriend's house XD and you think she might be setting you up or something crazy you know. There are just so many different use cases for this and all you have to do is enter that new password and you are now guaranteed that nobody is going to get access to anything that was residing on that encrypted partition. And the most beautiful part is that once you have retrieved your encrypted backed up key slots, all you have to do is restore them to the device and now you can have access to the encrypted partition again.
+And there's just so many different use cases for this. You know, you are traveling and you have to go through airport security. Or you're over at your ex-girlfriend's house and you think she might be setting you up or something crazy you know XD. There are just so many different use cases for this and all you have to do is enter that nuke password and you are now guaranteed that nobody is going to get access to anything that was residing on that encrypted partition. And the most beautiful part is that once you have retrieved your encrypted backed up key slots, all you have to do is restore them to the device and now you can have access to the encrypted partition again.
 
 To restore the encrypted partition boot into the USB just click on try or install. Or in other words, we do not have to go inside of advanced modes and open up persistence or encrypted persistence. In fact, we're not able to open up encrypted persistence at the moment. So we're just going to click on try or install. That is going to essentially boot us into what is typically referred to as a live boot.
 
@@ -319,14 +319,14 @@ we see that that USB stick is sitting on sdb, specifically sdb1, and it is not m
 sudo mount /dev/sdb1 /media
 ```
 
-Now I should be able to run ls on /media and see everything on my USB stick.
+Now I should be able to run ```ls``` on /media and see everything on my USB stick.
 Let us now first go ahead and copy the headers over to the machine and i will do that by running:
 
 ```bash
 sudo cp /media/luksheader.backup.enc /home/live
 ```
 
-(or if you are already in the home directory ~ just type . instead of /home/live )
+( or if you are already in the home directory ~ just type . instead of /home/live )
 
 and just to get rid of this USB stick situation now type the command:
 
@@ -350,7 +350,7 @@ Actually what you should be getting is a prompt asking you to type in ```YES``` 
 
 And the only thing that we need to do is now shut this down and reboot and attempt to boot back into the encrypted persistence to make sure everything is working as it should.
 
-And YES that is it now you restored everything and you are ready to continue from where you stopped before entering the NUKE PASSWORD
+And YES that is it now you restored everything and you are ready to continue from where you stopped before entering the Nuke Password.
 I hope you learn something new from this and thank you for reading
 
 And I'm just going to end with this. Encryption is the thing that probably best protects our privacy so encrypt everything. Protect yourself. Protect your privacy. And dont forget to backup everything offline on removable storage 
