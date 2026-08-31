@@ -137,7 +137,7 @@ It might be sdb or sdc.
 Now we’re going to create the new partition inside the empty space above our current live partitions by typing.
 
 ```bash
-sudo fdisk $usb <<< $(printf "p\nn\np\n\n\n\np\nw")
+sudo fdisk /dev/sda <<< $(printf "p\nn\np\n\n\n\np\nw")
 ```
 
 Once that completes, run:
