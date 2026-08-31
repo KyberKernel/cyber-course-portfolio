@@ -216,7 +216,7 @@ You should get this line as your return ( / union ).
 And finally, we're going to unmount the mounted file system by running the command:
 
 ```bash
-sudo umount -v /mount/my_usb
+sudo umount -v /mnt/my_usb
 ```
 
 The last thing that we need to do is close the encrypted partition by running the command:
@@ -344,7 +344,7 @@ sudo openssl enc -d -aes-256-cbc -in luksheader.backup.enc -out luksheader.backu
 So now if we do an ```ls```, we have our backed up luks header file, and the next thing to do is going to be to restore that luks header back to that partition that we removed it from and that partition for me is sda3. This could be different for you remember that, we're going to run the command:
 
 ```bash
-sudo crypsetup luksHeaderRestore --header-backup-file luksheader.backup /dev/sda3
+sudo cryptsetup luksHeaderRestore --header-backup-file luksheader.backup /dev/sda3
 ```
 
 Actually what you should be getting is a prompt asking you to type in ```YES``` in all capital letters
