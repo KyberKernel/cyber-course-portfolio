@@ -220,7 +220,7 @@ Uh, now that we are in the live persistence drive we can create what is commonly
 It's a little bit more complicated, but it is a wonderful feature to have. And this will allow us to insert an alternate password into that prompt so that if you are ever in a compromising situation and somebody is attempting to force you to decrypt your drive, you have the option of entering your nuke password and it will render those key slots useless. It will render all of the data on that encrypted partition useless and make it inaccessible.
 
 So, how do we do this? You have to have a certain package installed on Parrot OS Security Edition.
-It is already installed by default. That package is called crypt setup dash nuke dash password. If I do an apt search for that, we get back that it is used to erase the Luks keys with a special password on the unlocked prompt. And you see over here that it is already installed. So you don't need to make a connection to the internet.
+It is already installed by default. That package is called ```cryptsetup-nuke-password```. If I do an apt search for that, we get back that it is used to erase the Luks keys with a special password on the unlocked prompt. And you see over here that it is already installed. So you don't need to make a connection to the internet.
 
 you're definitely going to want to first back up your Lux key slots and encrypt them and save them in a separate place, a safe place. So in order to do that, I'm going to have to get a second USB stick other than the one that we are using because we are running the system from this one and you don't want to use that one.
 So, I'm going to grab a separate USB stick. And this is simply to save the backed up encrypted key slot too and get it off the machine.
