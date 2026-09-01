@@ -272,6 +272,17 @@ sudo rm luksheader.backup
 
 And there we go. So now with our encrypted backup key slots, we're going to want to remove them from this machine and store them in a safe place. Why do we want to do that? We want to do that because if you do not have access to them in a place outside of the machine that you are running this on, how are you ever going to get access to those key slots to restore them?
 I am going to go ahead and copy that encrypted backup over to my removable storage.
+First I'm going to mount the 2nd USB by running the command:
+
+```bash
+sudo mount /dev/sdb1 /media
+```
+
+and we are going to copy our encrypted luks key into the USB by running the command:
+
+```bash
+sudo cp luksheader.backup.enc /media
+```
 
 Now we are going to test and learn how we going to use that key by rebooting the machine and going to boot into Parrot OS and we want to choose the encrypted persistence option inside of the advanced modes.
 
