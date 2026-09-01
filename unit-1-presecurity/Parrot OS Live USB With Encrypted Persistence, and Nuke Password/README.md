@@ -123,7 +123,6 @@ Make sure that you have the correct device label.
 
 ## Step 5: Create the Persistence Partition
 
-First, check the USB letter:
 
 Now we’re going to create the new partition inside the empty space above our current live partitions by typing.
 
