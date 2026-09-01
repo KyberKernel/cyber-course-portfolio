@@ -125,14 +125,6 @@ Make sure that you have the correct device label.
 
 First, check the USB letter:
 
-```bash
-lsblk
-```
-Mine is sda
-Again, yours might be different.
-
-It might be sdb or sdc.
-
 Now we’re going to create the new partition inside the empty space above our current live partitions by typing.
 
 ```bash
