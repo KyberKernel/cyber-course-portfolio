@@ -123,12 +123,12 @@ Make sure that you have the correct device label.
 
 ## Step 5: Create the Persistence Partition
 
-First, create the USB variable:
+First, check the USB letter:
 
 ```bash
-USB=/dev/sda
+lsblk
 ```
-
+Mine is sda
 Again, yours might be different.
 
 It might be sdb or sdc.
@@ -151,13 +151,7 @@ You should now see a third partition:
 
 ## Step 6: Encrypt that partition
 
-Reference the variable again:
-
-```bash
-USB=/dev/sda
-```
-
-now we will encrypt this partition, and we are going to do that using LUKS. So we're going to run the command
+Now we will encrypt this partition, and we are going to do that using LUKS. So we're going to run the command
 
 ```bash
 sudo cryptsetup --verbose --verify-passphrase luksFormat /dev/sda3
