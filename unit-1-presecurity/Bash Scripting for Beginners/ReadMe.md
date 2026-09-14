@@ -19,9 +19,9 @@ In this article, you will learn:
 
 - The basic syntax of shell scripting.
 
-- How to see a system's scheduled scripts.
+- How to use variables and accept user input
 
-- How to automate scripts by scheduling via cron jobs.
+- How to use conditional statements and loops
 
 The best way to learn is by practicing. I highly encourage you to follow along here [kyberkernel parrot ](https://github.com/KyberKernel/cyber-course-portfolio/tree/main/unit-1-presecurity/Parrot%20OS%20Live%20USB%20With%20Encrypted%20Persistence%2C%20and%20Nuke%20Password). You can access a running Linux shell within minutes.
 
@@ -97,7 +97,7 @@ Each group of three characters represents someone on the system. The first three
 <img width="450" height="300" alt="1-file-permission-767x474-2923469870" src="https://github.com/user-attachments/assets/039b3f86-0793-4b78-b7d8-65f00e334e39" />
 
 To execute the file, you need to have execute permission. There are two ways to add execute permission.
-- ### Add a specific permission for a specific class on the system.
+- ### → Add a specific permission for a specific class on the system.
 
 We do that by running the ```chmod``` command, specifying the class for which we want to add or remove a permission, followed by the file name, and then pressing Enter. If you are the owner of the file you can change all permission bits for the `owner`, `group`, and `others` without `sudo`. However, you generally cannot change the file’s owner or group without elevated privileges
 
@@ -106,7 +106,7 @@ We do that by running the ```chmod``` command, specifying the class for which we
 chmod u+x script.sh
 ```
 
-- ### Add or remove permissions for all classes on the system with one command.
+- ### → Add or remove permissions for all classes on the system with one command.
 
 We do that by running the ```chmod``` command Followed by numbers that are translated into specific permissions, and then followed by the file name, and then pressing Enter.
 Here is an example of adding execute permission for the owner class while keeping the other classes’ default permissions unchanged.
@@ -139,6 +139,15 @@ As we know by now, the terminal uses the Bash interpreter to execute files by de
 
 ```bash
 bash script.sh
+
+#Also this mean
+
+bash /home/username/script.sh
+
+#OR
+
+bash /$HOME/script.sh
+
 ```
 
 - ### Executing the script by typing only its name.
@@ -242,8 +251,10 @@ script.sh
 Just like any other programming language, bash scripting follows a set of rules to create programs understandable by the computer. In this section, we will study the syntax of bash scripting.
 
 - # Variables
+A variable is a named container used to store data, such as text or a number, so it can be used later.
+
 ## How to create variables
-We can create a variable by using the syntax ```variable_name=value```. To get the value of the variable, add``` $ ```before the variable.
+We can create a variable by using the syntax ```variable_name=value```. And to print a variable’s value, add``` $ ```before the ```variable_name```to reference it.
 ```bash
 #!/bin/bash
 # A simple variable example
@@ -251,13 +262,22 @@ hello=Moro
 name=Dimi
 echo $hello $name
 ```
-- variables Naming rules:
-- 1 - They can contain letters:``` a-z or A-Z```
-- 2 - They can contain numbers:``` 0-9```
-- 3 - They can contain underscores:``` _```
-- What You Can't Do
-- 1 - They cannot contain hyphens:``` -```
-- 2 - They cannot start with a number
+Output:
+
+```bash
+Moro Dimi
+```
+- ### Variables Naming Rules:
+A variable name can contain:
+- 1 - Upper/Lowercase letters:``` a-z or A-Z```
+- 2 - Numbers:``` 0-9```
+- 3 - Underscores:``` _```
+
+ A variable name cannot:
+- 1 - Start with a number
+- 2 - Contain spaces
+- 3 - Contain special characters ```-  +  =  .  ,  /  \  @  #  !  $  %  ^  &  *  (  )  [  ]  {  }  :  ;  ?  '  "  <  >  |```
+
 
 # There are 3 types of variables
 - ## Shell variables
@@ -265,19 +285,35 @@ echo $hello $name
 - ## Special variables
 
 ## Shell variables
-A shell variable is a variable created and managed by the current shell. When created in a script, it is available to that script while it is running. It is not automatically passed to child processes unless it is exported.
+A shell variable is a variable created and managed by the current shell. When created in a script, it is available only within that script's scope while it is running.
+
 And there are two types of this variable.
 
 - ### 1 - Script-level variable
 - ### 2 - Function-level local variable
 
 ## Script-level variable
-A script-level variable is a variable set anywhere in the script (outside a function, or inside one without `local`), and it can be used by other parts of the script, including functions.
+A script-level variable is a variable set anywhere in a script that remains accessible to all parts of the script, including functions, unless explicitly overridden (changed) or unset (removed).
+
+```bash
+#!/bin/bash
+
+#Script-level variable
+name="Granhilde"
+echo "Terve $name"
+```
+Output:
+
+```bash
+Terve Granhilde
+```
 
 ## Function-level local variable
-A function-level local variable is a variable created inside a function using the  `local` keyword.
+A function-level local variable is a variable created inside a function using the  `local`  keyword.
 It is only accessible within that function and does not affect a variable with the same name outside that function.
 ```bash
+#!/bin/bash
+
 #Script-level variable
 name="Granhilde"
 
@@ -299,9 +335,9 @@ Moikka Justia
 Terve Granhilde
 ```
 - ### → What is the function ?
-It is named block of commands that you can create once and execute (call) whenever you need it.
+It is named block of commands that you can create once and execute whenever you need it.
 
-Instead of writing the same commands multiple times, you put them inside a function and call the function by its name.
+Instead of writing the same commands multiple times, you put them inside a function and execute them by calling the function name.
 
 Basic syntax
 ```bash
@@ -344,11 +380,7 @@ Functions are useful for
 ## Environment variables
 Environment variables are variables within the system environment. They are used to configure the system’s behavior and allow users to customize their systems.
 
-Environment variables have global scope, so they are accessible across the system and can also be accessed inside scripts.
-
-Shell variables are accessible only within the script. They are accessible only within the scope where they were created.
-
-If I create a variable in the parent process, I cannot access it from a child process, even if that child process was created by the parent process.
+Environment variables have global scope, so they are accessible across the system and can also be accessed inside scripts and they are inherited by child processes.
 
 - ### What is parent & child process?
 To simplify this topic if i open the terminal the shell I opened is a process and it's a parent process.
@@ -365,19 +397,20 @@ But if i called an environment variable inside a sub shell i will get output bec
 
 <img width="600" height="600" alt="download" src="https://github.com/user-attachments/assets/6adec49e-8b84-4d29-a387-f4ce866f5cba" />
 
-The ```export``` command exports a variable as an environment variable and makes it available to child processes. In other words, by using the ```export``` command, I make my shell variable accessible to child processes.
+The ```export``` command converts a``` shell variable ```into an ```environment variable```. This makes the variable available to ```child processes``` started by the``` current shell```. It does not make the variable ```system-wide```.
 
-Environment variables use the export command and are accessible throughout the system. Their purpose is to configure and customize the system. Most of the time, they are defined in configuration files.
+- To make an environment variable available to all users, an administrator can define it in a``` system-wide configuration file```. Common files include
 
-The purpose of shell variables is to be used inside a script, making the script more usable and easier to develop.
+- ``` /etc/environment``` a system-wide configuration file used to define environment variables for all users. The system reads these assignments and makes the variables available as environment variables, so``` export ```is not required 
 
-The ```export``` command makes a variable accessible to the parent and child processes of the process where I used the command. It does not make the variable ```system-wide```.
+- ``` /etc/profile``` a system-wide shell configuration file. It is read when users start a login shell and can contain ```shell commands```,``` aliases```,``` functions```, and ```exported environment variables```.
 
-The ```Bash``` configuration file is ```.bashrc```, and it is used by the ```Bash shell ```for the ```current user```.
 
-Variables can be used to call and execute programs that exist on the system. For example, if I want to call the``` Wireshark ``` program from the terminal, I can call it from it's path ```/usr/bin/wireshark```.
+Environment variables are used to configure and customize the behavior of the shell and other programs. They are usually created with the```  export```  command and inherited by child processes.
 
-Or call it by just typing its name ``` Wireshark ``` and the word ``` Wireshark ``` is a variable define as ```WIRESHARK=/usr/bin/wireshark``` and the shell will use the ```Environment variables``` ```$PATH``` to search for and execute commands inside the ```$PATH``` directory's.
+And often defined in configuration files such as```  ~/.bashrc``` .
+
+- The```  ~/.bashrc ``` file is a Bash configuration file for the ``` current user``` . Bash reads this file when an```  interactive terminal starts``` . And it can contain variables, aliases, functions, and other shell settings.
 
 Environment variables are usually written in uppercase letters, such as ABCDEFG.
 
@@ -497,10 +530,10 @@ Bash provides positional parameters such as $1, $2, $3, etc.
 
 For example:
 ```bash
-./script.sh hello world
+./script.sh hello
 ```
 
-Here, hello is an argument passed to script.sh.
+Here, hello is an argument passed to ```script.sh```.
 
 Inside the script:
 ```bash
@@ -509,23 +542,910 @@ echo "First argument: $1"
 echo "Second argument: $2"
 ```
 We will use arguments more later when we learn how to make decisions with```if statements.```
+
 But before we get there, we need to learn how to make our scripts more interactive and useful, we need a way for the script to receive input and make decisions based on that input.
 
-That’s why we’re now going to dive into User Input and While Loops then into Conditional Statements
+That’s why we’re going to dive into.
+
+# User Input (READ)
+The read command allows a script to receive information typed by the user while the script is running and stores that input in a variable.
 ```bash
-read
-   ↓
-while loops
-   ↓
-if / elif / else
-   ↓
-case
+#!/bin/bash
+
+echo "What is your name?"
+read name  # Stores user input in the variable 'name'
+
+echo "Hello, $name!"
 ```
-# User Input and While Loops
+If we look at that command, we can see that I included ```echo``` for the text I want to display. However, if I want to develop a program and insert ```echo``` on every line where I want something to appear on the screen, the code will become longer, and troubleshooting will become more difficult. I may also fall into something called``` hard-coding```.
+
+That is why the ```read``` command provides a solution. We can add options to it, and each option performs a ```specific function```, making our code cleaner and easier to read.
+
+For example, we can use the``` -p``` option to display a ```prompt```.
+
+```bash
+#!/bin/bash
+
+read -p "What is your name?: " name
+echo "Hello $name."
+
+```
+output:
+
+```bash
+
+What is your name?: Kyber
+Hello  Kyber
+```
+
+We have another option. For example, if I want to enter a password and do not want a stalker to look at my screen and see what I am typing.
+
+we can use the silent option ```-s``` to hide the user’s input from being displayed on the screen.
+
+We can also combine the options together.
+
+```bash
+#!/bin/bash
+
+read -s -p "Enter your password: " password
+
+echo "Password received."
+
+```
+output:
+
+```bash
+Enter your password:
+Password received.
+```
+
+What if we create a program that reads Windows file paths and needs to use the backslash (\)? 
+
+By default, the read command treats the backslash as an escape character, so it may not display the backslashes correctly.
+
+We can use the ```-r ```option to prevent this from happening.
 
 
+```bash
+#!/bin/bash
+
+read -r -p "Enter a windows path: " path
+echo "You entered: $path"
+
+```
+output:
+
+```bash
+Enter a path: C:\Users\Kyber
+You entered: C:\Users\Kyber
+```
+What if we want to set a time limit for the prompt and give the user a specific amount of time to enter their input? 
+
+If the input is not received within that time, the prompt will close. 
+
+We can use the ```-t ``` Time out option to do this.
+
+```bash
+#!/bin/bash
+
+read -t 5 -s -p "Enter your password within 5 seconds : " password
+
+echo "Password received."
+
+```
+output:
+
+```bash
+Enter your password within 5 seconds:
+Password received.
+```
+
+What if we want the user to enter text and be able to edit it before confirming it?
+
+For example, the user can use the arrow keys to move through the text and edit it
+
+In that case, we use the``` -e ```option.
+
+```bash
+#!/bin/bash
+
+read -e -p "Enter a command: " command
+echo "You entered: $command"
+
+```
+output:
+
+```bash
+Enter a command: ls -l
+You entered: ls -l
+```
+
+We can also provides initial text that appears automatically in the input area. The user can edit this text before pressing ```Enter```.
+
+In that case, we use the``` -i ```option and The``` -i ```option must be used together with``` -e```, because``` -e``` enables keyboard editing.
 
 
+```bash
+#!/bin/bash
+
+read -e -i "Hello" -p "Edit the message: " message
+
+echo "Final message: $message"
+
+#command will be displayed as Edit the message: Hello
+```
+output:
+
+```bash
+Edit the message: Hello, Dimi
+Final message: Hello, Dimi
+```
+
+We can also tell the prompt to stop reading input from the user after they press a specific key. 
+
+By default, read stops when the user presses Enter, but we can change this behavior. 
+
+To do that, we use the ```-d``` option.
+
+```bash
+#!/bin/bash
+
+read -d "," -p "Enter text followed by a comma: " text
+echo
+echo "You entered: $text"
+```
+output:
+
+```bash
+Enter text followed by a comma: Hello,←
+You entered: Hello
+```
 
 
+What if we want to stores multiple input values in an indexed array. Each value is assigned an index number, starting from 0, so we can access the values individually.
 
+In that case, we use the``` -a ```option.
+
+
+```bash
+#!/bin/bash
+
+read -a names -p "Enter three names: "
+echo "First name: ${names[0]}"
+echo "Second name: ${names[1]}"
+echo "Third name: ${names[2]}"
+```
+output:
+
+```bash
+Enter three names: Dimi Roni Karita
+First name: Dimi
+Second name: Roni
+Third name: Karita
+
+#The values must be separated by spaces. The first value is stored at index 0, the second at index 1, and the third at index 2
+```
+Here is a quick list of some of the most commonly used options in Bash scripting with the read command.
+```bash
+
+-p	Displays a prompt before waiting for the user’s input.
+-s	Hides the user’s input while they are typing. It is commonly used for passwords.
+-r	Prevents backslashes (\) from being treated as escape characters. It is recommended when reading ordinary text.
+-t	Sets a time limit, in seconds, for entering input.
+-a	Stores the input as separate elements in an indexed array.
+-e	Enables keyboard editing while entering input. It allows features such as using the arrow keys to move through the text.
+-i	Provides initial text that the user can edit. It must be used with -e.
+-d	Uses a specified character as the delimiter instead of Enter. The input ends when that character is entered.
+-u	Reads input from a specific file descriptor instead of standard input.
+-n	Reads a specific number of characters and continues immediately after that number is entered.
+```
+
+And finally what if we want to ask the user whether they really want to do something and give them the choice of Y or N?
+
+If we want the action to be taken immediately after they press a key, without pressing``` Enter```
+
+we can use the``` -n ```option the the number of inputs we want to insert.
+
+```bash
+#!/bin/bash
+
+read -n 1 -p "Do you want to continue? (Y/N): " answer
+
+if [[ "$answer" == "Y" || "$answer" == "y" ]]; then
+    echo "Continuing..."
+else
+    echo "Exiting..."
+fi
+```
+output:
+
+```bash
+Do you want to continue? (Y/N): Y
+Continuing...
+
+Do you want to continue? (Y/N): N
+Exiting...
+```
+
+
+As we can see in the last example, we used something called a logical choice, in other words, an ```if statement```.
+
+# What is ```if statement```?
+The if statement in Bash is used to execute a block of code only if a certain condition is``` true```.
+
+It’s the most basic way to make decisions in shell scripting.
+
+```bash
+if [ condition ]; then
+    # Code to run if condition is true
+fi
+```
+If I want to add more than one condition, I can use``` elif ```and ```else```, and the command will look like this:
+
+```bash
+if [ condition ]; then
+    # Code to execute if the condition is true
+elif [ condition2 ]; then
+    # Code to execute if the second condition is true
+else
+    # Code to execute if all conditions are false
+fi
+```
+
+If the condition after ```if ```is true, Bash executes the code under ```then```.
+
+If the condition is``` false```, Bash checks the condition after``` elif```. You can use multiple``` elif``` statements if you want to check more conditions.
+
+If all the conditions are``` false```, Bash executes the code under ```else```.
+
+The ```fi``` keyword marks the end of the ```if``` statement.
+
+### Let’s talk about comparison operators in Bash, which are used to compare values.
+
+There are three main types:
+
+- String comparisons
+- Numeric comparisons
+- File comparisons
+
+## String comparisons
+
+string comparisons are used to check if two strings are equal, not equal, empty, or match a pattern. They are essential for decision-making in scripts.
+
+### String Comparison Operators
+
+```bash
+
+# Equality
+=   # Equal to
+==  # Equal to (preferred in [[ ]])
+!=  # Not equal to
+
+# Less Than
+<   # Less than (lexicographical)
+<=  # Less than or equal to (lexicographical)
+
+# Greater Than
+>   # Greater than (lexicographical)
+>=  # Greater than or equal to (lexicographical)
+
+# Empty/Non-empty Check
+-z   # Is empty?
+-n   # Is not empty?
+
+```
+## Numeric comparisons
+
+Numeric comparisons are used to check if numbers are equal, not equal, greater, less, etc... and They are essential for decision-making in scripts.
+
+### Numeric comparisons Operators
+
+```bash
+# Equality
+-eq   # Equal to (=)
+-ne   # Not equal to (!=)
+
+# Less Than
+-lt   # Less than (<)
+-le   # Less than or equal to (<=)
+
+# Greater Than
+-gt   # Greater than (>)
+-ge   # Greater than or equal to (>=)
+
+```
+
+## File comparisons
+
+File comparison operators in Bash are used to check various file properties such as existence, type, permissions, and modification time.
+
+These operators are typically used within conditional statements to control the flow of scripts based on file attributes.
+
+### File comparisons Operators
+
+```bash
+-e   # Exists (file/directory/symlink)
+-f   # Exists AND is a regular file (not directory/symlink/special)
+-d   # Exists AND is a directory
+-L   # Exists AND is a symbolic link
+-h   # Exists AND is a symbolic link (same as -L)
+-r   # Exists AND is readable
+-w   # Exists AND is writable
+-x   # Exists AND is executable
+-s   # Exists AND is not empty
+-k   # Exists AND has sticky bit set (directory protection)
+-c   # Exists AND is a character device node
+-b   # Exists AND is a block device node
+-nt # File1 is newer than File2
+-ot # File1 is older than File2
+-ef # Both files are hard links to the same inode
+```
+
+## The``` ! ```Negation Operator
+
+In Bash scripting, the ```! ``` symbol is used as a negation operator. It means ```“NOT” ```and reverses the result of a command or condition.
+
+For example:
+```bash
+if ! [[ -f "file.txt" ]]; then
+    echo "File does not exist"
+fi
+```
+In this example ```-f "file.txt" ``` checks whether ```file.txt``` ```exists```. The ```! ```reverses the result, so the``` then ```part runs when the file ```does not exist```.
+
+# Combining Conditions
+Allow you to combine multiple conditions using AND, OR, and parentheses. These operators help you make decisions based on whether one or more tests are true.
+
+### Combining Conditions Operators
+```bash
+&& means AND : both conditions must be true.
+|| means OR  : at least one condition must be true.
+-a means AND inside [ ].
+-o means OR  inside [ ].
+(  )  Parentheses are used to group conditions and control which condition is evaluated first.
+```
+For Example: 
+```bash
+if [ -n "$pass" ] && [ "$pass" = "password" ]; then
+    echo "Password is valid"
+fi
+```
+Example using parentheses
+```bash
+if [[ "$a" == "yes" && ( "$b" == "yes" || "$c" == "yes" ) ]]; then
+    echo "Condition is true"
+fi
+
+```
+This means
+```bash
+Condition A AND (Condition B OR Condition C)
+
+The parentheses group these conditions
+
+Condition B OR Condition C
+
+That group is evaluated first. Then its result is combined with Condition A using &&.
+
+```
+As you can see in the previous example we used Double Square Brackets and thats made our script looks cleaner but before that
+
+# What is Double Square Brackets [[ ... ]] in Bash
+
+The double square brackets ```[[ ... ]]```, are used to test conditions in Bash. They allow you to combine multiple conditions in one test expression, making the code shorter and easier to read.
+
+Example using Double Square Brackets
+```bash
+read -p "Provide your age, country, and membership: " age country membership
+
+age=18
+country="fi"
+membership="premi"
+
+if [[ ( "$age" -ge 18 && "$country" == "fi" ) || "$membership" == "premi" ]]; then
+    echo "Welcome in"
+else
+    echo "Access denied"
+fi
+```
+This means
+
+(age is at least 18 AND country is fi)
+OR
+membership is premi
+
+The first condition to check is the age and country if the results false then check the membership if results true then enter the site if not then print access denied 
+
+Same Example using singel Square Brackets
+```bash
+if \( [ "$age" -ge 18 ] && [ "$country" = "fi" ] \) || [ "$membership" = "premi" ]; then
+    echo "Welcome in"
+else
+    echo "Access denied"
+fi
+
+```
+As you can see, the single bracket version is longer and uses more separate condition checks.
+```bash
+[ "$age" -ge 18 ]
+[ "$country" = "fi" ]
+[ "$membership" = "premi" ]
+```
+
+With double brackets, several conditions can be written inside one condition check
+```bash
+if [[ ( $age -ge 18 && $country == fi ) || $membership == premi ]]; then
+    echo "Welcome in"
+fi
+```
+The double brackets make the code shorter because you do not need a separate``` [ ... ] ```for every condition.
+
+- It is safer, handles errors better, and is easier to use.
+
+- I do not need to add quotation marks ```"$var" ```between the values.
+
+- Logical operators are included.
+
+- I can change the order of the logic by adding parentheses``` (  ) ```around the condition I want to process first.
+
+Okay, now we know about ``` arguments``` and ```logical operations``` in Bash, and how to insert``` user input```. We need to create an interface for the program we want to code.
+
+To do that, we need to talk about ``` loops ```in Bash and how they work.
+
+So, we are going to dive in loops now.
+
+# Loops
+
+The two main loops in Bash are the ```while loop ```and the ```for loop```.
+
+## While loop
+
+A ```while ```loop repeats commands while a condition is true.
+
+When the condition becomes false, the loop stops.
+
+```bash
+while condition
+do
+    commands
+done
+```
+Example:
+```bash
+#!/bin/bash
+
+myvar=1
+
+while [[ $myvar -le 10 ]]
+do
+    echo "$(date +"%Y-%m-%d_%H-%M-%S"): $myvar"
+    myvar=$(( myvar + 1 ))
+    sleep 2
+done
+```
+Output:
+```bash
+2026-09-13_14-30-00: 1
+2026-09-13_14-30-02: 2
+2026-09-13_14-30-04: 3
+2026-09-13_14-30-06: 4
+2026-09-13_14-30-08: 5
+2026-09-13_14-30-10: 6
+2026-09-13_14-30-12: 7
+2026-09-13_14-30-14: 8
+2026-09-13_14-30-16: 9
+2026-09-13_14-30-18: 10
+
+```
+Let’s go ahead and see what happened
+
+As you can see, the script counts from 1 to 10. How does it work?
+
+At the top, we have the shebang:
+```bash
+#!/bin/bash
+```
+This tells the system to use Bash to run the script
+
+Next, we create a variable called``` myvar ```and set its value to 1:
+
+```bash
+myvar=1
+```
+After that, we start a while loop. We use the keyword``` while```, followed by a condition:
+
+```bash
+while [[ $myvar -le 10 ]]
+```
+This condition checks whether myvar is less than or equal to 10.
+
+At the beginning, myVar is equal to 1, so the condition is true. While the condition is true, the commands inside the loop are executed.
+
+First, the script prints the current value of myvar and the current date and time using Command Substituiton:
+```bash
+echo "$(date +"%Y-%m-%d_%H-%M-%S"): $myvar"
+```
+- ## What is Command Substituiton
+- It's capture a command's output and use it as a value
+```bash
+current_user=$(whoami)
+echo "Hello, $current_user"
+echo "Today is $(date)"
+```
+```bash
+## Date formatting
+| Specifier | Meaning |
+|-----------|---------|
+| %Y | year (4-digit) |
+| %m | month (01-12) |
+| %d | day (01-31) |
+| %H | hour (00-23) |
+| %M | minute |
+| %S | second |
+| %A / %a | weekday, full / abbreviated |
+| %I | hour (01-12) |
+| %p | AM/PM |
+
+date +"%Y-%m-%d_%H-%M-%S"
+
+```
+Then, it increases the value of ```myvar``` by 1 using the arithmetic calculation:
+```bash
+myvar=$(( myvar + 1 ))
+```
+For example, if myVar is 1, it becomes 2. If it is 2, it becomes 3.
+
+- ## What is arithmetic calculation
+- arithmetic calculations is a basic math operation let you work with whole numbers using operators such
+```bash
++	addition
+-	subtraction
+*	multiplication
+/	division
+%	modulus
+```
+Useing the syntax``` $(( ... ))```:
+```bash
+a=5
+b=2
+
+sum=$((a + b))
+difference=$((a - b))
+product=$((a * b))
+quotient=$((a / b))
+remainder=$((a % b))
+
+echo "$sum"        # 7
+echo "$difference" # 3
+echo "$product"    # 10
+echo "$quotient"   # 2
+echo "$remainder"  # 1
+
+```
+The script then waits for 2 seconds:
+```bash
+sleep 2
+```
+Finally, the ```done ```keyword shows that the commands inside the``` while ```loop have ended.
+
+The loop repeats this process:
+
+- Check whether``` myvar ```is less than or equal to``` 10```.
+- Print the current value.
+- Add``` 1 ```to``` myvar```.
+- Wait for``` 2 seconds```.
+- Repeat the loop.
+When``` myvar``` is 10, the condition is still true because 10 is equal to 10.
+
+The script prints 10 and then increases``` myvar ```to 11.
+
+The loop runs one more time, but now the condition is false because 11 is greater than 10.
+
+Therefore, the loop stops, and the script finishes.
+
+In Bash, a ```while loop``` is often combined with a``` case statement ```to create an interactive menu of options.
+
+The while loop repeatedly displays the menu and allows the user to select an option.
+
+The ```case statement ```checks the user’s choice and executes the corresponding command.
+
+After the command finishes, the loop returns to the menu.
+
+It continues until the user chooses an option such as Exit, which stops the loop.
+
+More about that later, let see the other type of loops in Bash.
+
+# For Loops
+A ```for Loop ```allows you to perform a task repeatedly for every item in a set.
+
+compared to an``` if statement``` an ```if statement``` performs a task once if a certain set of conditions evaluates as true.
+
+Where as a``` while loop ```performs a task or set of tasks over and over again until a particular state is reached.
+
+A ```for Loop ```is a concept of executing a command or set of commands against each item in a set
+```bash
+for variable in list
+do
+    commands
+done
+```
+Here is a Practical``` for loop ```example
+```bash
+#!/bin/bash
+
+# Create the logfiles directory
+
+mkdir -p logfiles
+
+# Create example files
+
+touch logfiles/access.log
+touch logfiles/error.log
+touch logfiles/system.log
+touch logfiles/notes.txt
+
+# Compress every .log file
+
+for file in logfiles/*.log
+do
+    tar -czvf $file.tar.gz $file
+done
+```
+### How the script will works?
+
+```mkdir -p logfiles ```creates the directory if it does not already exist, and``` touch ```creates the example files.
+
+If the files already exist, ```touch``` does not delete their contents.
+
+The script will create this structure:
+```bash
+logfiles/
+├── access.log
+├── error.log
+├── system.log
+└── notes.txt
+```
+Then the``` For ```loop does the following:
+
+- Looks inside the logfiles directory.
+- Finds every file ending in ```.log```.
+- Stores one filename in the variable file.
+- Creates a compressed``` .tar.gz ```archive for that file.
+- Moves to the next ```.log``` file.
+- Repeats until all matching files have been processed.
+- Ends when there are no more ```.log``` files.
+
+After the loop finishes, the directory will contain:
+```bash
+logfiles/
+├── access.log
+├── access.log.tar.gz
+├── error.log
+├── error.log.tar.gz
+├── system.log
+├── system.log.tar.gz
+└── notes.txt
+```
+### so what the purpose of the For loop ?
+
+A for loop repeats the same action for multiple files or values automatically.
+
+It is useful when you need to perform the same operation multiple times without writing the commands repeatedly.
+
+And the purpose of the for loop in our example is to process every .log file automatically.
+
+Without the loop, you would need to write one command for every file:
+
+```bash
+
+
+tar -czvf logfiles/access.log.tar.gz logfiles/access.log
+tar -czvf logfiles/error.log.tar.gz logfiles/error.log
+tar -czvf logfiles/system.log.tar.gz logfiles/system.log
+
+```
+This saves time, makes the script shorter, and allows the script to process any number of .log files automatically.
+
+Let’s discuss next the`` case statement``. It’s going to be a lot of fun since we’re starting to get closer to the end of this course and becoming able to create simple Bash programs that can perform useful tasks for us.
+
+But remember, with practice, you can do almost anything with Bash.
+
+# Case Statements
+We can use a case statement to create a sort of menu and allow the user to choose an option from that menu.
+
+Example:
+
+```bash
+#!/bin/bash
+
+echo "What is your favorite Linux distribution?"
+
+echo "1. Arch Linux"
+echo "2. CentOS"
+echo "3. Debian"
+echo "4. Linux Mint"
+echo "5. Ubuntu"
+echo "6. Other"
+
+read -p "Choose an option: " distro
+
+case "$distro" in
+    1)
+        echo "Arch Linux is a powerful and flexible distribution."
+        ;;
+    2)
+        echo "CentOS is commonly used on servers."
+        ;;
+    3)
+        echo "Debian is a community-based distribution."
+        ;;
+    4)
+        echo "Linux Mint is user-friendly and easy to use."
+        ;;
+    5)
+        echo "Ubuntu is popular on both servers and computers."
+        ;;
+    6)
+        echo "You selected a distribution that is not on the list."
+        ;;
+    *)
+        echo "You did not enter an appropriate choice."
+
+esac
+```
+Now notice that we have an asterisk:
+```bash
+*)
+    echo "You did not enter an appropriate choice."
+
+   ```
+The asterisk works as a catch-all option. While the script is running, the case statement compares the user’s input with the available options, such as values one through six.
+
+If none of those options match, Bash reaches the asterisk.
+
+This means that the user entered something other than a valid selection.
+
+For example, they may have entered 7, 9, ABC, or 123. Since none of these values match the available options, the asterisk executes its command and displays the appropriate message.
+
+Notice After each case option that there are two semicolons
+```bash
+1)
+    echo "You selected option 1."
+    ;;
+    ↑
+     ↑
+ 
+```
+The two semicolons tell Bash that the commands for that option are finished. If you have multiple commands, the semicolons should be placed after the final command.
+
+The ``semicolons ``can be placed on the same line as the command or on a separate line. When there is only one command, it is common to place them at the end of that command.
+
+The final case option dosent need the semicolons before ``esac``
+
+The ``esac`` keyword marks the end of the ``case statement``.
+
+Now let’s add a ``while ``loop to our script and create a real, working menu.
+```bash
+#!/bin/bash
+
+finished=0
+
+while [ "$finished" -ne 1 ]
+do
+    echo "What is your favorite Linux distribution?"
+    echo "1. Arch Linux"
+    echo "2. CentOS"
+    echo "3. Debian"
+    echo "4. Linux Mint"
+    echo "5. Ubuntu"
+    echo "6. Other"
+    echo "7. Exit"
+
+    read -p "Choose an option: " distro
+
+    case "$distro" in
+        1)
+            echo "Arch Linux is a powerful and flexible distribution."
+            ;;
+        2)
+            echo "CentOS is commonly used on servers."
+            ;;
+        3)
+            echo "Debian is a community-based distribution."
+            ;;
+        4)
+            echo "Linux Mint is user-friendly and easy to use."
+            ;;
+        5)
+            echo "Ubuntu is popular on both servers and computers."
+            ;;
+        6)
+            echo "You selected a distribution that is not on the list."
+            ;;
+        7)
+            finished=1
+            ;;
+        *)
+            echo "You did not enter an appropriate choice."
+    esac
+
+done
+
+echo "Thank you for using this script."
+
+```
+
+How this script works?
+
+- The while loop displays the menu repeatedly.
+
+- The case statement checks the user’s choice and executes the matching command.
+
+- When the user selects option 7, the finished variable changes from 0 to 1. 
+
+- The while condition is then no longer true, so the loop ends.
+
+Now, this particular script is not very useful by itself. 
+
+However, if you use your creativity, you can create a menu-driven interface for managing a server. 
+
+This could be especially useful for beginners who have not yet mastered all the necessary commands.
+
+A menu-driven script could perform many different tasks. 
+
+Instead of simply displaying an echo statement when the user selects an option, the script could:
+
+- Update packages
+- Reboot the server
+- Perform data-processing tasks
+- Manage files
+- Run other system administration commands
+
+For example, option 7 is used to exit the script. It does not need to display an echo statement. Instead, it can set the finished variable to 1.
+
+# Exit Status
+
+An exit status is a value that indicates whether a command or script completed successfully.
+
+- 0 means success.
+- Any other value indicates some kind of failure.
+
+The special variable``` $? ```stores the exit status of the most recently executed command:
+
+``echo $?``
+
+You can set your own exit status using the` exit `command:
+```bash
+exit 0   # Success
+exit 1   # Error
+
+```
+Custom exit codes are useful for identifying different types of failures, especially when debugging scripts.
+
+For example:
+
+```bash
+if [ ! -d "$1" ]; then
+    echo "Source directory does not exist"
+    exit 1
+fi
+```
+In this example,`` -d "$1" ``checks whether the first argument is a directory.
+
+If the directory does not exist, the script displays an error message and ``exits with status code 1``.
+
+# THE END 
+
+## Congratulations on completing this Bash scripting course!
+
+You now have the basic knowledge and tools needed to start creating useful Bash scripts. You have learned how to use``` variables, user input, conditional statements, loops, case statements, exit statuses, and command-line arguments```.
+
+These concepts allow you to automate repetitive tasks, create interactive menus, process files, manage servers, and build scripts that provide real value.
+
+This is only the beginning. Continue practicing, experiment with your own ideas, and do not be afraid to make mistakes. The more you practice, the more confident and creative you will become with Bash scripting.
+
+### You made it to the end! 
+
+Now it’s your turn to put your Bash skills into action. Keep practicing, stay curious, and turn your ideas into powerful scripts. 
+
+The command line is yours to explore.
