@@ -958,7 +958,7 @@ The first condition to check is the age and country if the results false then ch
 
 Same Example using singel Square Brackets
 ```bash
-if \( [ "$age" -ge 18 ] && [ "$country" = "fi" ] \) || [ "$membership" = "premi" ]; then
+if ( [ "$age" -ge 18 ] && [ "$country" = "fi" ] ) || [ "$membership" = "premi" ]; then
     echo "Welcome in"
 else
     echo "Access denied"
